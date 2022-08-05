@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4959690762535076490}
   - component: {fileID: 4959690762535076489}
   - component: {fileID: 4975438810954545156}
+  - component: {fileID: 8299269611114019033}
+  - component: {fileID: 1408049045331910447}
+  - component: {fileID: 4047740236999288493}
   m_Layer: 9
   m_Name: BaseGhost
   m_TagString: Blinky
@@ -80,6 +83,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8299269611114019033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959690762535076493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b078f1662e6c01b419ffafa6bc8a266b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 4
+--- !u!114 &1408049045331910447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959690762535076493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892cfb574f2e6f4cb0d73c8fb50de55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4047740236999288493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959690762535076493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082669d9725bc554d86939225cb43f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4959690762931578614
 GameObject:
   m_ObjectHideFlags: 0
