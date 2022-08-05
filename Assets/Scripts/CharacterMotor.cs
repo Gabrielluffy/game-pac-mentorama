@@ -22,6 +22,7 @@ public class CharacterMotor : MonoBehaviour
 
 	private Vector2 _boxSize;
 
+	public event Action OnAlignedWithGrid;
 	public event Action<Direction> OnDirectionCharged;
 
 	public Direction CurrentMoveDirection
@@ -136,6 +137,8 @@ public class CharacterMotor : MonoBehaviour
 
 		if (_rigidbody.position.x == Mathf.CeilToInt(_rigidbody.position.x) && _rigidbody.position.y == Mathf.CeilToInt(_rigidbody.position.y))
 		{
+			OnAlignedWithGrid?.Invoke();
+
 			if (_currentMovementDirection != _desireMovementDirection)
 			{
 				if (!Physics2D.BoxCast(_rigidbody.position, _boxSize, 0, _desireMovementDirection, 1f, 1 << LayerMask.NameToLayer("Level")))
