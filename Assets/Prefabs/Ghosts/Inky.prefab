@@ -7,15 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4959690762535076493, guid: 0ba2c876566128e408531ea9ed877bd1,
+    - target: {fileID: 2311795679480201843, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
-      propertyPath: m_Name
-      value: Inky
+      propertyPath: GhostType
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4959690762535076493, guid: 0ba2c876566128e408531ea9ed877bd1,
+    - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
-      propertyPath: m_TagString
-      value: Inky
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
@@ -34,6 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -45,16 +50,6 @@ PrefabInstance:
     - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4959690762535076490, guid: 0ba2c876566128e408531ea9ed877bd1,
@@ -74,6 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4959690762535076492, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
+      propertyPath: GhostType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959690762535076492, guid: 0ba2c876566128e408531ea9ed877bd1,
+        type: 3}
       propertyPath: ChaseMethod
       value: 
       objectReference: {fileID: 11400000, guid: 3fdcc0adeca2b1c4f8452b4792fd761d,
@@ -84,10 +84,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 31fe02b8992f3e843a4707a1265bf667,
         type: 2}
-    - target: {fileID: 4959690762535076492, guid: 0ba2c876566128e408531ea9ed877bd1,
+    - target: {fileID: 4959690762535076493, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
-      propertyPath: GhostType
-      value: 2
+      propertyPath: m_Name
+      value: Inky
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959690762535076493, guid: 0ba2c876566128e408531ea9ed877bd1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Inky
       objectReference: {fileID: 0}
     - target: {fileID: 4959690762931578612, guid: 0ba2c876566128e408531ea9ed877bd1,
         type: 3}
