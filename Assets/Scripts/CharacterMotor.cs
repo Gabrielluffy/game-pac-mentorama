@@ -22,8 +22,15 @@ public class CharacterMotor : MonoBehaviour
 
 	private Vector2 _boxSize;
 
+	private LayerMask _collisionLayerMask;
+
 	public event Action OnAlignedWithGrid;
 	public event Action<Direction> OnDirectionCharged;
+
+	public LayerMask CollisionLayerMask
+	{
+		get => _collisionLayerMask;
+	}
 
 	public Direction CurrentMoveDirection
 	{
@@ -80,6 +87,7 @@ public class CharacterMotor : MonoBehaviour
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_boxSize = GetComponent<BoxCollider2D>().size;
+		_collisionLayerMask = LayerMask.GetMask(new string[] { "Level", "Gates" });
 	}
 
 	private void Update()
@@ -135,20 +143,22 @@ public class CharacterMotor : MonoBehaviour
 
 		Physics2D.SyncTransforms();
 
-		if (_rigidbody.position.x == Mathf.CeilToInt(_rigidbody.position.x) && _rigidbody.position.y == Mathf.CeilToInt(_rigidbody.position.y))
+		if (_rigidbody.position.x == Mathf.CeilToInt(_rigidbody.position.x) &&
+			_rigidbody.position.y == Mathf.CeilToInt(_rigidbody.position.y) ||
+			_currentMovementDirection == Vector2.zero)
 		{
 			OnAlignedWithGrid?.Invoke();
 
 			if (_currentMovementDirection != _desireMovementDirection)
 			{
-				if (!Physics2D.BoxCast(_rigidbody.position, _boxSize, 0, _desireMovementDirection, 1f, 1 << LayerMask.NameToLayer("Level")))
+				if (!Physics2D.BoxCast(_rigidbody.position, _boxSize, 0, _desireMovementDirection, 1f, _collisionLayerMask))
 				{
 					_currentMovementDirection = _desireMovementDirection;
 					OnDirectionCharged?.Invoke(CurrentMoveDirection);
 				}
 			}
 
-			if (Physics2D.BoxCast(_rigidbody.position, _boxSize, 0, _desireMovementDirection, 1f, 1 << LayerMask.NameToLayer("Level")))
+			if (Physics2D.BoxCast(_rigidbody.position, _boxSize, 0, _desireMovementDirection, 1f, _collisionLayerMask))
 			{
 				_currentMovementDirection = Vector2.zero;
 				OnDirectionCharged?.Invoke(CurrentMoveDirection);
