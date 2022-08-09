@@ -9,13 +9,15 @@ public class GhostMove : MonoBehaviour
 	private Vector2 _targetMoveLocation;
 	public event Action OnUpdateMoveTarget;
 
+	public CharacterMotor CharacterMotor { get => _motor; }
+
 	public void SetTargetMoveLocation(Vector2 targetMoveLocation)
 	{
 		_targetMoveLocation = targetMoveLocation;
 	}
 
 	// Start is called before the first frame update
-	void Start()
+	private void Awake()
 	{
 		_motor = GetComponent<CharacterMotor>();
 		_motor.OnAlignedWithGrid += CharacterMotor_OnAlignedWithGrid;

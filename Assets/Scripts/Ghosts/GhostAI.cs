@@ -5,8 +5,23 @@ public class GhostAI : MonoBehaviour
 {
 	private GhostMove _ghostMove;
 	private Transform _pacman;
-	// Start is called before the first frame update
-	void Start()
+
+	public void Reset()
+	{
+		_ghostMove.CharacterMotor.ResetPosition();
+	}
+
+	public void StartMoving()
+	{
+		_ghostMove.CharacterMotor.enabled = true;
+	}
+
+	public void StopMoving()
+	{
+		_ghostMove.CharacterMotor.enabled = false;
+	}
+
+	private void Awake()
 	{
 		_ghostMove = GetComponent<GhostMove>();
 		_ghostMove.OnUpdateMoveTarget += _ghostMove_OnUpdateMoveTarget;
@@ -19,5 +34,12 @@ public class GhostAI : MonoBehaviour
 		_ghostMove.SetTargetMoveLocation(_pacman.position);
 	}
 
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			other.GetComponent<Life>().RemoveLife();
+		}
+	}
 
 }
