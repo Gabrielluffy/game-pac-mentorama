@@ -39,14 +39,13 @@ public class PacManView : MonoBehaviour
 	{
 		transform.Rotate(0, 0, -90);
 		AudioSource.PlayOneShot(LifeLostSound);
+		Animator.speed = 1;
 		Animator.SetBool("Moving", false);
 		Animator.SetBool("Dead", true);
 	}
 
 	private void CharacterMotor_OnDirectionCharged(Direction direction)
 	{
-		Animator.speed = 1;
-
 		switch (direction)
 		{
 			case Direction.None:
