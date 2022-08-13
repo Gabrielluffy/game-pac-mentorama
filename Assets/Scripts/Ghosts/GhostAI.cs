@@ -18,6 +18,7 @@ public class GhostAI : MonoBehaviour
 	private Transform _pacman;
 	private GhostState _ghostState;
 	private float _vulnerabilityTimer;
+	private bool _leaveHouse;
 
 	public event Action<GhostState> OnGhostStateChange;
 
@@ -26,6 +27,7 @@ public class GhostAI : MonoBehaviour
 		_ghostMove.CharacterMotor.ResetPosition();
 		_ghostState = GhostState.Active;
 		OnGhostStateChange?.Invoke(_ghostState);
+		_leaveHouse = false;
 	}
 
 	public void StartMoving()
@@ -46,6 +48,21 @@ public class GhostAI : MonoBehaviour
 		_ghostMove.AllowReverseDirection();
 	}
 
+	public void Recover()
+	{
+		_ghostMove.CharacterMotor.CollideWithGates(true);
+		_ghostState = GhostState.Active;
+		OnGhostStateChange?.Invoke(_ghostState);
+		_leaveHouse = false;
+
+	}
+
+	public void LeaveHouse()
+	{
+		_ghostMove.CharacterMotor.CollideWithGates(false);
+		_leaveHouse = true;
+	}
+
 	private void Start()
 	{
 		_ghostMove = GetComponent<GhostMove>();
@@ -54,6 +71,7 @@ public class GhostAI : MonoBehaviour
 		_pacman = GameObject.FindWithTag("Player").transform;
 
 		_ghostState = GhostState.Active;
+		_leaveHouse = false;
 	}
 
 	private void Update()
@@ -86,7 +104,23 @@ public class GhostAI : MonoBehaviour
 		switch (_ghostState)
 		{
 			case GhostState.Active:
-				_ghostMove.SetTargetMoveLocation(_pacman.position);
+				if (_leaveHouse)
+				{
+					if (transform.position == new Vector3(0, 3, 0))
+					{
+						_leaveHouse = false;
+						_ghostMove.CharacterMotor.CollideWithGates(true);
+						_ghostMove.SetTargetMoveLocation(_pacman.position);
+					}
+					else
+					{
+						_ghostMove.SetTargetMoveLocation(new Vector3(0, 3, 0));
+					}
+				}
+				else
+				{
+					_ghostMove.SetTargetMoveLocation(_pacman.position);
+				}
 				break;
 			case GhostState.Vulnerable:
 			case GhostState.VulnerabilityEnding:
@@ -114,6 +148,7 @@ public class GhostAI : MonoBehaviour
 			case GhostState.VulnerabilityEnding:
 				if (other.CompareTag("Player"))
 				{
+					_ghostMove.CharacterMotor.CollideWithGates(false);
 					_ghostState = GhostState.Defeated;
 					OnGhostStateChange?.Invoke(_ghostState);
 				}

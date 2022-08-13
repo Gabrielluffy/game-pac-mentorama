@@ -95,13 +95,26 @@ public class CharacterMotor : MonoBehaviour
 		OnResetPosition?.Invoke();
 	}
 
+	public void CollideWithGates(bool shouldCollide)
+	{
+		if (shouldCollide)
+		{
+			_collisionLayerMask = LayerMask.GetMask(new string[] { "Level", "Gates" });
+		}
+		else
+		{
+			_collisionLayerMask = LayerMask.GetMask(new string[] { "Level" });
+		}
+	}
+
+
 	private void Start()
 	{
 		_desireMovementDirection = Vector2.zero;
 		_currentMovementDirection = Vector2.zero;
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_boxSize = GetComponent<BoxCollider2D>().size;
-		_collisionLayerMask = LayerMask.GetMask(new string[] { "Level", "Gates" });
+		CollideWithGates(true);
 		_initialPosition = transform.position;
 	}
 

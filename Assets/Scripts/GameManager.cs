@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
 	private GhostAI[] _allGhosts;
 	private CharacterMotor _pacmanMotor;
+	private GhostHouse _ghostHouse;
 
 	private GameStates _gameStates;
 	private int _victoryCount;
@@ -46,6 +47,9 @@ public class GameManager : MonoBehaviour
 		_pacmanMotor = pacman.GetComponent<CharacterMotor>();
 		_allGhosts = FindObjectsOfType<GhostAI>();
 		StopAllCharacters();
+
+		_ghostHouse = FindObjectOfType<GhostHouse>();
+		_ghostHouse.enabled = false;
 
 		pacman.GetComponent<Life>().OnLifeRemoved += PacMan_OnLifeRemoved;
 
@@ -89,6 +93,7 @@ public class GameManager : MonoBehaviour
 				{
 					_gameStates = GameStates.Playing;
 					StartAllCharacters();
+					_ghostHouse.enabled = true;
 
 					OnGameStarted?.Invoke();
 				}
