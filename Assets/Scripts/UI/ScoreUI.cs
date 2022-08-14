@@ -25,4 +25,6 @@ public class ScoreUI : MonoBehaviour
 	{
 		CurrentScoreText.text = $"{score:00}";
 	}
+
+
 }

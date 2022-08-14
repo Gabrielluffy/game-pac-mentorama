@@ -21,6 +21,7 @@ public class GhostAI : MonoBehaviour
 	private bool _leaveHouse;
 
 	public event Action<GhostState> OnGhostStateChange;
+	public event Action OnDefeatedGhost;
 
 	public void Reset()
 	{
@@ -54,7 +55,6 @@ public class GhostAI : MonoBehaviour
 		_ghostState = GhostState.Active;
 		OnGhostStateChange?.Invoke(_ghostState);
 		_leaveHouse = false;
-
 	}
 
 	public void LeaveHouse()
@@ -86,7 +86,6 @@ public class GhostAI : MonoBehaviour
 					_ghostState = GhostState.VulnerabilityEnding;
 					OnGhostStateChange?.Invoke(_ghostState);
 				}
-
 				break;
 			case GhostState.VulnerabilityEnding:
 				_vulnerabilityTimer -= Time.deltaTime;
@@ -151,11 +150,10 @@ public class GhostAI : MonoBehaviour
 					_ghostMove.CharacterMotor.CollideWithGates(false);
 					_ghostState = GhostState.Defeated;
 					OnGhostStateChange?.Invoke(_ghostState);
+					OnDefeatedGhost?.Invoke();
 				}
 				break;
 		}
-
-
 	}
 
 }
