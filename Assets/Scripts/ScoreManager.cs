@@ -35,9 +35,10 @@ public class ScoreManager : MonoBehaviour
 
 	}
 
-	private void Ghost_OnDefeatedGhost()
+	private void Ghost_OnDefeatedGhost(int count)
 	{
-		_currentScore += scoreGhost;
+		count *= 2;
+		_currentScore += (scoreGhost * count);
 		OnScoreChanged?.Invoke(_currentScore);
 	}
 

@@ -21,7 +21,8 @@ public class GhostAI : MonoBehaviour
 	private bool _leaveHouse;
 
 	public event Action<GhostState> OnGhostStateChange;
-	public event Action OnDefeatedGhost;
+	public event Action<int> OnDefeatedGhost;
+	public int CountDefeatedGhost;
 
 	public void Reset()
 	{
@@ -29,6 +30,7 @@ public class GhostAI : MonoBehaviour
 		_ghostState = GhostState.Active;
 		OnGhostStateChange?.Invoke(_ghostState);
 		_leaveHouse = false;
+		CountDefeatedGhost = 1;
 	}
 
 	public void StartMoving()
@@ -72,6 +74,7 @@ public class GhostAI : MonoBehaviour
 
 		_ghostState = GhostState.Active;
 		_leaveHouse = false;
+		CountDefeatedGhost = 1;
 	}
 
 	private void Update()
@@ -85,6 +88,7 @@ public class GhostAI : MonoBehaviour
 				{
 					_ghostState = GhostState.VulnerabilityEnding;
 					OnGhostStateChange?.Invoke(_ghostState);
+					OnDefeatedGhost?.Invoke(CountDefeatedGhost);
 				}
 				break;
 			case GhostState.VulnerabilityEnding:
@@ -93,6 +97,7 @@ public class GhostAI : MonoBehaviour
 				{
 					_ghostState = GhostState.Active;
 					OnGhostStateChange?.Invoke(_ghostState);
+					CountDefeatedGhost = 1;
 				}
 				break;
 		}
@@ -150,10 +155,9 @@ public class GhostAI : MonoBehaviour
 					_ghostMove.CharacterMotor.CollideWithGates(false);
 					_ghostState = GhostState.Defeated;
 					OnGhostStateChange?.Invoke(_ghostState);
-					OnDefeatedGhost?.Invoke();
+					CountDefeatedGhost++;
 				}
 				break;
 		}
 	}
-
 }

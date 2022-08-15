@@ -5,7 +5,6 @@ public class PacManInput : MonoBehaviour
 {
 	[SerializeField]
 	private CharacterMotor _motor;
-
 	void Start()
 	{
 		_motor.GetComponent<CharacterMotor>();
@@ -31,4 +30,5 @@ public class PacManInput : MonoBehaviour
 			_motor.SetMoveDirection(Direction.Right);
 		}
 	}
+
 }
