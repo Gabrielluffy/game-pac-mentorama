@@ -35,15 +35,25 @@ public class ScoreManager : MonoBehaviour
 
 	private void Ghost_OnDefeatedGhost(int count)
 	{
-		if (count <= 1)
+		switch (count)
 		{
-			_currentScore += 100;
-			OnScoreChanged?.Invoke(_currentScore);
-		}
-		if (count > 1)
-		{
-			_currentScore = _currentScore + (100 * count);
-			OnScoreChanged?.Invoke(_currentScore);
+			default:
+			case 1:
+				_currentScore += 200;
+				OnScoreChanged?.Invoke(_currentScore);
+				break;
+			case 2:
+				_currentScore += 400;
+				OnScoreChanged?.Invoke(_currentScore);
+				break;
+			case 3:
+				_currentScore += 600;
+				OnScoreChanged?.Invoke(_currentScore);
+				break;
+			case 4:
+				_currentScore += 800;
+				OnScoreChanged?.Invoke(_currentScore);
+				break;
 		}
 	}
 
