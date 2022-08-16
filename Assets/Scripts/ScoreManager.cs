@@ -5,7 +5,6 @@ public class ScoreManager : MonoBehaviour
 {
 	private int _currentScore;
 	private int _highScore;
-	private int scoreGhost;
 
 	public int CurrentScore { get => _currentScore; }
 	public int HighScore { get => _highScore; }
@@ -16,7 +15,6 @@ public class ScoreManager : MonoBehaviour
 	private void Awake()
 	{
 		_highScore = PlayerPrefs.GetInt("high-score", 0);
-		scoreGhost = 100;
 	}
 
 	private void Start()
@@ -37,9 +35,16 @@ public class ScoreManager : MonoBehaviour
 
 	private void Ghost_OnDefeatedGhost(int count)
 	{
-		count *= 2;
-		_currentScore += (scoreGhost * count);
-		OnScoreChanged?.Invoke(_currentScore);
+		if (count <= 1)
+		{
+			_currentScore += 100;
+			OnScoreChanged?.Invoke(_currentScore);
+		}
+		if (count > 1)
+		{
+			_currentScore = _currentScore + (100 * count);
+			OnScoreChanged?.Invoke(_currentScore);
+		}
 	}
 
 	private void Collectible_OnCollected(int score, Collectible collectible)

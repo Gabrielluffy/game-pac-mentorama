@@ -88,7 +88,6 @@ public class GhostAI : MonoBehaviour
 				{
 					_ghostState = GhostState.VulnerabilityEnding;
 					OnGhostStateChange?.Invoke(_ghostState);
-					OnDefeatedGhost?.Invoke(CountDefeatedGhost);
 				}
 				break;
 			case GhostState.VulnerabilityEnding:
@@ -97,7 +96,6 @@ public class GhostAI : MonoBehaviour
 				{
 					_ghostState = GhostState.Active;
 					OnGhostStateChange?.Invoke(_ghostState);
-					CountDefeatedGhost = 1;
 				}
 				break;
 		}
@@ -155,6 +153,7 @@ public class GhostAI : MonoBehaviour
 					_ghostMove.CharacterMotor.CollideWithGates(false);
 					_ghostState = GhostState.Defeated;
 					OnGhostStateChange?.Invoke(_ghostState);
+					OnDefeatedGhost?.Invoke(CountDefeatedGhost);
 					CountDefeatedGhost++;
 				}
 				break;
