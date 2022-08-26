@@ -17,12 +17,12 @@ public class GhostAI : MonoBehaviour
 	private GhostMove _ghostMove;
 	private Transform _pacman;
 	private GhostState _ghostState;
+	private ScoreManager scoreManager;
 	private float _vulnerabilityTimer;
 	private bool _leaveHouse;
 
 	public event Action<GhostState> OnGhostStateChange;
 	public event Action<int> OnDefeatedGhost;
-	public int CountDefeatedGhost;
 
 	public void Reset()
 	{
@@ -30,7 +30,7 @@ public class GhostAI : MonoBehaviour
 		_ghostState = GhostState.Active;
 		OnGhostStateChange?.Invoke(_ghostState);
 		_leaveHouse = false;
-		CountDefeatedGhost = 1;
+
 	}
 
 	public void StartMoving()
@@ -71,10 +71,10 @@ public class GhostAI : MonoBehaviour
 		_ghostMove.OnUpdateMoveTarget += _ghostMove_OnUpdateMoveTarget;
 
 		_pacman = GameObject.FindWithTag("Player").transform;
+		scoreManager = FindObjectOfType<ScoreManager>();
 
 		_ghostState = GhostState.Active;
 		_leaveHouse = false;
-		CountDefeatedGhost = 1;
 	}
 
 	private void Update()
@@ -96,6 +96,7 @@ public class GhostAI : MonoBehaviour
 				{
 					_ghostState = GhostState.Active;
 					OnGhostStateChange?.Invoke(_ghostState);
+					scoreManager.CountDefeatedGhost = 1;
 				}
 				break;
 		}
@@ -150,11 +151,15 @@ public class GhostAI : MonoBehaviour
 			case GhostState.VulnerabilityEnding:
 				if (other.CompareTag("Player"))
 				{
+					if (scoreManager.CountDefeatedGhost > 4)
+					{
+						scoreManager.CountDefeatedGhost = 1;
+					}
 					_ghostMove.CharacterMotor.CollideWithGates(false);
 					_ghostState = GhostState.Defeated;
 					OnGhostStateChange?.Invoke(_ghostState);
-					OnDefeatedGhost?.Invoke(CountDefeatedGhost);
-					CountDefeatedGhost++;
+					OnDefeatedGhost?.Invoke(scoreManager.CountDefeatedGhost);
+					scoreManager.CountDefeatedGhost++;
 				}
 				break;
 		}
