@@ -6,6 +6,8 @@ public class ScoreManager : MonoBehaviour
 	private int _currentScore;
 	private int _highScore;
 
+	public int CountDefeatedGhost;
+
 	public int CurrentScore { get => _currentScore; }
 	public int HighScore { get => _highScore; }
 
@@ -19,6 +21,8 @@ public class ScoreManager : MonoBehaviour
 
 	private void Start()
 	{
+		CountDefeatedGhost = 1;
+
 		var allCollectibles = FindObjectsOfType<Collectible>();
 		foreach (var collectible in allCollectibles)
 		{
